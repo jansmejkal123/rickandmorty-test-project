@@ -6,7 +6,8 @@ const query = gql`
     query getEpisodes ($page: Int) {
       episodes(page: $page) {
         info {
-          pages
+          pages,
+          count
         }
         results {
             id
