@@ -3,14 +3,14 @@ import episodesQuery from "@/data/queries/episodes";
 import {GetServerSideProps} from "next";
 
 const Test = () => {
-    const {data} = useQuery('episodes', episodesQuery, {
+    const {data} = useQuery('episodes', () => episodesQuery({page:2}), {
         refetchOnMount:false
     })
     return (<div>TEST {data?.info.count}</div>)
 }
 
 const Episodes = () => {
-    const {data} = useQuery('episodes', episodesQuery, {
+    const {data} = useQuery('episodes', () => episodesQuery({page:2}), {
         useErrorBoundary: true
     })
     return (<div>
@@ -30,7 +30,7 @@ export default Episodes
 export const getServerSideProps: GetServerSideProps = async (context ) => {
     const queryClient = new QueryClient()
 
-    await queryClient.fetchQuery('episodes',episodesQuery)
+    await queryClient.fetchQuery('episodes',() => episodesQuery({page:2}))
 
     return {
         props: {

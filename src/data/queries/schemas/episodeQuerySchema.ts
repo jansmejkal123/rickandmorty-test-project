@@ -2,7 +2,7 @@ import {z} from 'zod'
 import {responseInfo} from "@/data/queries/schemas/common/commonSchemas";
 
 const episode = z.object({
-    id: z.number(),
+    id: z.string(),
     /* name: z.string(),
      air_date: z.string(),
      episode: z.string(),
