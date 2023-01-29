@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (context 
 
     const queryClient = new QueryClient()
 
-    await queryClient.fetchQuery('episodes',episodesQuery)
+    await queryClient.fetchQuery('episodes',() => episodesQuery({page:2}))
 
     return {
         props: {
