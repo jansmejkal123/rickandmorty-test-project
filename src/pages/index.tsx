@@ -8,8 +8,8 @@ type HomeProps = {
     dehydratedState: DehydratedState
 }
 
-export default function Home({dehydratedState}: HomeProps) {
-    const {data, isLoading, refetch, isRefetching} = useQuery('episodes', episodesQuery, {staleTime: 1, cacheTime: 1})
+export default function Home({}: HomeProps) {
+    const {data, isLoading, refetch} = useQuery('episodes', () => episodesQuery({page: 2}), {staleTime: 1, cacheTime: 1})
     if (isLoading) {
         return (<div>loading</div>)
     }
@@ -28,7 +28,7 @@ export default function Home({dehydratedState}: HomeProps) {
       <main>
           <button onClick={() => refetch()}>fetch</button>
           <Link href={'/episodes/'} title={'episodes'}>episodes</Link>
-          {data.info.count}
+          {data.info.pages}
       </main>
     </>
   )
