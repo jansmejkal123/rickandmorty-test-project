@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import {GetServerSideProps} from 'next';
 import {QueryClient, dehydrate, DehydratedState, useQuery} from "react-query";
-import episodesQuery from "@/queries/episodes";
+import episodesQuery from "@/data/queries/episodes";
 import Link from "next/link";
 
 type HomeProps = {

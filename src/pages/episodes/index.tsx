@@ -1,5 +1,5 @@
 import {dehydrate, QueryClient, useQuery} from "react-query";
-import episodesQuery from "@/queries/episodes";
+import episodesQuery from "@/data/queries/episodes";
 import {GetServerSideProps} from "next";
 
 const Test = () => {
@@ -11,7 +11,7 @@ const Test = () => {
 
 const Episodes = () => {
     const {data} = useQuery('episodes', episodesQuery, {
-        refetchOnMount:true
+        useErrorBoundary: true
     })
     return (<div>
         <main>
