@@ -1,19 +1,24 @@
 import {z} from 'zod'
-import {responseInfo} from "@/data/queries/schemas/common/commonSchemas";
+
+const info = z.object({
+    count: z.number().nullable(),
+    pages: z.number().nullable(),
+    next: z.number().nullable(),
+    prev: z.number().nullable(),
+})
+
 
 const episode = z.object({
     id: z.string(),
-    /* name: z.string(),
-     air_date: z.string(),
-     episode: z.string(),
-     characters: z.array(z.string()),
-     url: z.string(),
-     created: z.string()*/
+    name: z.string(),
+    air_date: z.string(),
+    episode: z.string(),
 })
+
 
 const episodesQuerySchema = z.object({
     episodes: z.object({
-        info: responseInfo,
+        info: info,
         results: z.array(episode)
     })
 })
