@@ -1,4 +1,4 @@
-import episodesQuerySchema, {EpisodesQuerySchemaResponse} from "@/data/schemas/episodeQuerySchema";
+import episodeIDsQuerySchema , {EpisodeIDsQuerySchemaResponse} from "@/data/schemas/episodeIDsQuerySchema";
 import {gql, request} from 'graphql-request'
 import {RICK_AND_MORTY_GRAPHQL_API} from "@/data/constants";
 
@@ -13,19 +13,16 @@ const query = gql`
         }
         results {
             id,
-            name,
-            air_date,
-            episode,
         }
       }
     }`
 
-type EpisodesQueryParams = {
+type EpisodeIDsQueryParams = {
     page: number;
 }
-const episodesQuery = ({page}:EpisodesQueryParams) => request<EpisodesQuerySchemaResponse>(RICK_AND_MORTY_GRAPHQL_API, query, {page: page}).then(async (response) => {
+const episodeIDsQuery = async ({page}:EpisodeIDsQueryParams) => await request<EpisodeIDsQuerySchemaResponse>(RICK_AND_MORTY_GRAPHQL_API, query, {page}).then(async (response) => {
     try {
-        const result = episodesQuerySchema.parse(response)
+        const result = episodeIDsQuerySchema.parse(response)
         const {info, results} = result.episodes
 
         return {info, results}
@@ -33,9 +30,8 @@ const episodesQuery = ({page}:EpisodesQueryParams) => request<EpisodesQuerySchem
         // TODO: handle errors
         console.error('debug: error', e)
         return {info: null, results: null}
-
     }
 
 })
 
-export default episodesQuery;
+export default episodeIDsQuery;

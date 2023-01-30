@@ -28,7 +28,6 @@ export default function Home({}: HomeProps) {
       <main>
           <button onClick={() => refetch()}>fetch</button>
           <Link href={'/episodes/'} title={'episodes'}>episodes</Link>
-          {data.info.pages}
       </main>
     </>
   )

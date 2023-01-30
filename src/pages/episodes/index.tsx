@@ -14,7 +14,8 @@ const Test = () => {
     const {data} = useQuery('episodes', () => episodesQuery({page}), {
         refetchOnMount: false
     })
-    return (<div>TEST {data?.info.count}</div>)
+    if (!data) return (<div>no data</div>)
+    return (<div>TEST {data.info && data.info.count}</div>)
 }
 
 const Episodes = () => {
@@ -24,12 +25,13 @@ const Episodes = () => {
     const {data} = useQuery('episodes', () => episodesQuery({page}), {
         useErrorBoundary: true
     })
+    if (!data) return (<div>no data</div>)
     return (<div>
         <main>
             <Test/>
             <h1>episodes</h1>
             <EpisodesPaging page={page} />
-            {data && data.results.map((result: any) => {
+            {data.results && data.results.map((result: any) => {
                 return (<div key={result.id}>{result.id}</div>)
             })
             }
@@ -58,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const queryClient = new QueryClient()
 
     const data = await queryClient.fetchQuery('episodes', () => episodesQuery({page: Number(page)}))
-    if (!data || data.info.pages === null) { // when data.info.pages === null wrong page number was requested
+    if (!data || !data.info || data.info.pages === null) { // when data.info.pages === null wrong page number was requested
         return {
             redirect: {
                 destination: '/episodes?page=1',
