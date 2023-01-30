@@ -7,7 +7,7 @@ import {MouseEventHandler} from "react";
 type EpisodesPagingProps = {
     page: number
 }
-const EpisodesPaging = ({page}: EpisodesPagingProps) => {
+const EpisodesPaging = ({page = 1}: EpisodesPagingProps) => {
     const {replace} = useRouter()
     const {data} = useQuery('episodes', ()=>episodesQuery({page}), {
         refetchOnMount: false

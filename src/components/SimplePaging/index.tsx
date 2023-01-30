@@ -12,9 +12,9 @@ type SimplePagingProps = {
 
 const SimplePaging = ({prevLabel,hasNext, hasPrev, currentPage, nextLabel, onPrevHandler, onNextHandler}: SimplePagingProps) => {
     return (<div>
-        {hasPrev && (<button onClick={onPrevHandler}>({prevLabel})</button>)}
+        {hasPrev && (<button onClick={onPrevHandler}>{prevLabel}</button>)}
         {currentPage}
-        {hasNext && (<button onClick={onNextHandler}>Prev ({nextLabel})</button>)}
+        {hasNext && (<button onClick={onNextHandler}>{nextLabel}</button>)}
     </div>)
 }
 

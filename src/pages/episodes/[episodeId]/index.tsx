@@ -1,50 +1,51 @@
-import {GetStaticPaths, GetStaticProps} from "next";
-import {QueryClient} from "react-query";
-import episodeIDsQuery from "@/data/queries/episodeIDs";
-import {EpisodeIDsQuerySchemaResponse} from "@/data/schemas/episodeIDsQuerySchema";
+import {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
+import {dehydrate, QueryClient, useQuery} from "react-query";
+import {fetchAllEpisodeIds} from "@/data/utitlities";
+import episodeQuery from "@/data/queries/episode";
+import {useRouter} from "next/router";
+import {ParsedUrl} from "next/dist/shared/lib/router/utils/parse-url";
+import {NextParsedUrlQuery} from "next/dist/server/request-meta";
 
-type EpisodeProps = {
-    data: string[]
+interface EpisodeContextParams extends NextParsedUrlQuery {
+    episodeId: string
 }
+
 const Episode = () => {
-    return (<div>episode</div>)
+    const router = useRouter()
+    const {episodeId} = router.query as EpisodeContextParams
+    const {data} = useQuery('episode', () => episodeQuery({id: episodeId}), {refetchOnMount: false})
+    if (!data) {
+        return (<div>no data</div>)
+    }
+    return (<div>
+        episode
+        <ul>
+            {data.characters.map(character => {
+                return (<li key={character.id}>{character.id}</li>)
+            })}
+        </ul>
+    </div>)
 }
 
 export default Episode
 
-export const getStaticProps: GetStaticProps<EpisodeProps> = () => {
+export const getStaticProps: GetStaticProps = async (context) => {
+    const {params} = context as GetStaticPropsContext<{ episodeId: string }>
+
+    const queryClient = new QueryClient()
+    await queryClient.fetchQuery('episode', () => episodeQuery({id: params!.episodeId}))
+
     return {
         props: {
-            data: []
+            dehydratedState: dehydrate(queryClient),
         },
         revalidate: 10
     }
 }
 
 
-//TODO: move to utils?
-const getIdsFromResults = (results: EpisodeIDsQuerySchemaResponse['episodes']['results'] | null):string[] => {
-    if (!results) return []
-    return results.map(result => result.id)
-}
-const fetchAEpisodeIds = async (): Promise<string[]> => {
-    let pageNumber = 1
-    let totalPages: number
-    const ids:string[] = []
-    const {results, info} = await episodeIDsQuery({page: pageNumber})
-    if (!info || !info.pages) return ids
-    totalPages = info.pages
-    ids.push(...getIdsFromResults(results))
-
-    for (let i = pageNumber+1; i <= totalPages; i++) {
-        const {results, info} = await episodeIDsQuery({page: i})
-        ids.push(...getIdsFromResults(results))
-    }
-
-    return ids
-}
 export const getStaticPaths: GetStaticPaths = async () => {
-    const ids = await fetchAEpisodeIds()
+    const ids = await fetchAllEpisodeIds()
 
     return {
         paths: ids.map(id => ({

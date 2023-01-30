@@ -6,18 +6,6 @@ import {useRouter} from "next/router";
 
 import EpisodesPaging from "@/components/EpisodesPaging";
 
-const Test = () => {
-    const router = useRouter()
-    const {page: pageParam} = router.query as EpisodesContextParams
-    const page = Number(pageParam)
-
-    const {data} = useQuery('episodes', () => episodesQuery({page}), {
-        refetchOnMount: false
-    })
-    if (!data) return (<div>no data</div>)
-    return (<div>TEST {data.info && data.info.count}</div>)
-}
-
 const Episodes = () => {
     const router = useRouter()
     const {page: pageParam} = router.query as EpisodesContextParams
@@ -28,7 +16,6 @@ const Episodes = () => {
     if (!data) return (<div>no data</div>)
     return (<div>
         <main>
-            <Test/>
             <h1>episodes</h1>
             <EpisodesPaging page={page} />
             {data.results && data.results.map((result: any) => {
