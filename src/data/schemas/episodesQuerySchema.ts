@@ -1,12 +1,5 @@
 import {z} from 'zod'
-
-const info = z.object({
-    count: z.number().nullable(),
-    pages: z.number().nullable(),
-    next: z.number().nullable(),
-    prev: z.number().nullable(),
-})
-
+import episodesInfo from "@/data/schemas/common/episodesInfo";
 
 const episode = z.object({
     id: z.string(),
@@ -15,10 +8,9 @@ const episode = z.object({
     episode: z.string(),
 })
 
-
 const episodesQuerySchema = z.object({
     episodes: z.object({
-        info: info,
+        info: episodesInfo,
         results: z.array(episode)
     })
 })
