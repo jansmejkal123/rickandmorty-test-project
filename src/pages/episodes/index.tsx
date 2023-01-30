@@ -4,6 +4,8 @@ import {GetServerSideProps} from "next";
 import {NextParsedUrlQuery} from "next/dist/server/request-meta";
 import {useRouter} from "next/router";
 
+import EpisodesPaging from "@/components/EpisodesPaging";
+
 const Test = () => {
     const router = useRouter()
     const {page: pageParam} = router.query as EpisodesContextParams
@@ -26,6 +28,7 @@ const Episodes = () => {
         <main>
             <Test/>
             <h1>episodes</h1>
+            <EpisodesPaging page={page} />
             {data && data.results.map((result: any) => {
                 return (<div key={result.id}>{result.id}</div>)
             })
@@ -48,7 +51,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         return {
             redirect: {
                 destination: '/episodes?page=1',
-                params: {page: 1},
                 permanent: false,
             },
         }
@@ -60,7 +62,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         return {
             redirect: {
                 destination: '/episodes?page=1',
-                params: {page: 1},
                 permanent: false,
             },
         }

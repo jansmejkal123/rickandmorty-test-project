@@ -7,10 +7,15 @@ const query = gql`
       episodes(page: $page) {
         info {
           pages,
-          count
+          count,
+          next,
+          prev
         }
         results {
-            id
+            id,
+            name,
+            air_date,
+            episode,
         }
       }
     }`
