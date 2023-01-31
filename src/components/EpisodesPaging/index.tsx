@@ -18,21 +18,18 @@ const EpisodesPaging = (_: EpisodesPagingProps) => {
     const pages = data && data.info.pages
 
     const items = useMemo(()=> {
-        console.log('debug: pages')
         return [...new Array(pages)]
     },[pages])
 
     if (!data || !data.info){
         return (<div>No data</div>)
     }
-    items.map((item, i) => console.log('debug: item i', i))
 
     return (<Stack direction={'horizontal'} className={'flex-grow-1 justify-content-end'}>
         <Pagination>
             {
                 ...items.map((_, i) => {
             const pageNumber = i+1
-            console.log('debug: pagenumber from pagination map', pageNumber)
             return (<PagingItem key={pageNumber} pageNumber={pageNumber} isActive={pageNumber === page}  />)
                 })
     }</Pagination></Stack>)
