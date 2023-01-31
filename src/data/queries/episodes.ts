@@ -32,7 +32,7 @@ const episodesQuery = ({page}:EpisodesQueryParams) => request<EpisodesQuerySchem
     } catch (e) {
         // TODO: handle errors
         console.error('debug: error', e)
-        return {info: null, results: null}
+        //return {info: null, results: null}
 
     }
 

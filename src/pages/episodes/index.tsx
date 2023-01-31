@@ -1,7 +1,7 @@
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import episodesQuery from "@/data/queries/episodes";
 import {GetServerSideProps} from "next";
-import {NextParsedUrlQuery} from "next/dist/server/request-meta";
+import {EpisodesContextParams} from "@/pages/types";
 import {useRouter} from "next/router";
 
 import EpisodesPaging from "@/components/EpisodesPaging";
@@ -17,7 +17,7 @@ const Episodes = () => {
     return (<div>
         <main>
             <h1>episodes</h1>
-            <EpisodesPaging page={page} />
+            <EpisodesPaging />
             {data.results && data.results.map((result: any) => {
                 return (<div key={result.id}>{result.id}</div>)
             })
@@ -28,9 +28,6 @@ const Episodes = () => {
 
 export default Episodes
 
-interface EpisodesContextParams extends NextParsedUrlQuery {
-    page?: string
-}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const pageString = context.query && context.query.page ? context.query.page as EpisodesContextParams['page'] : '1'
