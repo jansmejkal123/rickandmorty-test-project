@@ -1,5 +1,6 @@
-import episodesQuerySchema, {EpisodesQuerySchemaResponse} from "@/data/schemas/episodesQuerySchema";
+import episodesQuerySchema from "@/data/schemas/episodesQuerySchema";
 import {gql, request} from 'graphql-request'
+import {EpisodesQuerySchemaResponse} from "@/types";
 import {RICK_AND_MORTY_GRAPHQL_API} from "@/data/constants";
 
 const query = gql`
@@ -32,7 +33,7 @@ const episodesQuery = ({page}:EpisodesQueryParams) => request<EpisodesQuerySchem
     } catch (e) {
         // TODO: handle errors
         console.error('debug: error', e)
-        return {info: null, results: null}
+        //return {info: null, results: null}
 
     }
 

@@ -39,4 +39,4 @@ const episodeQuerySchema = z.object({
 
 export default episodeQuerySchema
 
-export type EpisodeQuerySchemaResponse = z.infer<typeof episodeQuerySchema>
+
