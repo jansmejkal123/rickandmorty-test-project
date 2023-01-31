@@ -1,7 +1,7 @@
 import {z} from 'zod'
 import episodesInfo from "@/data/schemas/common/episodesInfo";
 
-const episode = z.object({
+export const episode = z.object({
     id: z.string(),
     name: z.string(),
     air_date: z.string(),
@@ -17,4 +17,3 @@ const episodesQuerySchema = z.object({
 
 export default episodesQuerySchema
 
-export type EpisodesQuerySchemaResponse = z.infer<typeof episodesQuerySchema>

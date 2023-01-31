@@ -1,6 +1,6 @@
 
 //TODO: move to utils?
-import {EpisodeIDsQuerySchemaResponse} from "@/data/schemas/episodeIDsQuerySchema";
+import {EpisodeIDsQuerySchemaResponse} from "@/types";
 import episodeIDsQuery from "@/data/queries/episodeIDs";
 
 const getIdsFromResults = (results: EpisodeIDsQuerySchemaResponse['episodes']['results'] | null):string[] => {

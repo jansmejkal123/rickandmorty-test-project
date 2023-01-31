@@ -3,12 +3,7 @@ import {dehydrate, QueryClient, useQuery} from "react-query";
 import {fetchAllEpisodeIds} from "@/data/utitlities";
 import episodeQuery from "@/data/queries/episode";
 import {useRouter} from "next/router";
-import {ParsedUrl} from "next/dist/shared/lib/router/utils/parse-url";
-import {NextParsedUrlQuery} from "next/dist/server/request-meta";
-
-interface EpisodeContextParams extends NextParsedUrlQuery {
-    episodeId: string
-}
+import {EpisodeContextParams} from "@/types";
 
 const Episode = () => {
     const router = useRouter()
@@ -54,6 +49,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
             }
         })),
         fallback: true,
-
     }
 }

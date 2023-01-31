@@ -1,10 +1,12 @@
 import {dehydrate, QueryClient, useQuery} from "react-query";
 import episodesQuery from "@/data/queries/episodes";
 import {GetServerSideProps} from "next";
-import {EpisodesContextParams} from "@/pages/types";
+import {EpisodesContextParams} from "@/types";
 import {useRouter} from "next/router";
 
 import EpisodesPaging from "@/components/EpisodesPaging";
+import {Container, Stack, Row, Col} from "react-bootstrap";
+import EpisodeList from "@/components/EpisodeList";
 
 const Episodes = () => {
     const router = useRouter()
@@ -14,16 +16,20 @@ const Episodes = () => {
         useErrorBoundary: true
     })
     if (!data) return (<div>no data</div>)
-    return (<div>
+    return (<>
         <main>
-            <h1>episodes</h1>
-            <EpisodesPaging />
-            {data.results && data.results.map((result: any) => {
-                return (<div key={result.id}>{result.id}</div>)
-            })
-            }
+            <Container fluid={'md'}>
+                <Row>
+                  <Col><h1>episodes</h1></Col>
+                  <Col><EpisodesPaging /></Col>
+                </Row>
+                <Stack direction={'vertical'} className={'d-flex  justify-content-center'}>
+                    <EpisodeList episodes={data.results}  />
+
+                </Stack>
+            </Container>
         </main>
-    </div>)
+    </>)
 }
 
 export default Episodes

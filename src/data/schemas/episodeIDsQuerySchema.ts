@@ -14,5 +14,3 @@ const episodeIDsQuerySchema = z.object({
 })
 
 export default episodeIDsQuerySchema
-
-export type EpisodeIDsQuerySchemaResponse = z.infer<typeof episodeIDsQuerySchema>

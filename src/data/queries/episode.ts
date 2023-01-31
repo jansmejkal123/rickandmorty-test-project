@@ -1,4 +1,5 @@
-import episodeQuerySchema, {EpisodeQuerySchemaResponse} from "@/data/schemas/episodeQuerySchema";
+import episodeQuerySchema from "@/data/schemas/episodeQuerySchema";
+import {EpisodeQuerySchemaResponse} from "@/types";
 import {gql, request} from 'graphql-request'
 import {RICK_AND_MORTY_GRAPHQL_API} from "@/data/constants";
 

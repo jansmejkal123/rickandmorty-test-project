@@ -1,10 +1,11 @@
-import {EpisodesContextParams} from "@/pages/types";
+import {EpisodesContextParams} from "@/types";
 import {useQuery} from "react-query";
 import episodesQuery from "@/data/queries/episodes";
 import {useRouter} from "next/router";
 import {useMemo} from "react";
 import Pagination from "react-bootstrap/Pagination";
 import PagingItem from "@/components/EpisodesPaging/PagingItem";
+import {Stack} from "react-bootstrap";
 type EpisodesPagingProps = {
 }
 const EpisodesPaging = (_: EpisodesPagingProps) => {
@@ -26,7 +27,7 @@ const EpisodesPaging = (_: EpisodesPagingProps) => {
     }
     items.map((item, i) => console.log('debug: item i', i))
 
-    return (<div>
+    return (<Stack direction={'horizontal'} className={'flex-grow-1 justify-content-end'}>
         <Pagination>
             {
                 ...items.map((_, i) => {
@@ -34,7 +35,7 @@ const EpisodesPaging = (_: EpisodesPagingProps) => {
             console.log('debug: pagenumber from pagination map', pageNumber)
             return (<PagingItem key={pageNumber} pageNumber={pageNumber} isActive={pageNumber === page}  />)
                 })
-    }</Pagination></div>)
+    }</Pagination></Stack>)
 }
 
 export default EpisodesPaging
