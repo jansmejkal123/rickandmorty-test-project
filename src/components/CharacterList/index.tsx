@@ -6,15 +6,14 @@ type CharacterListProps = {
     characters: Character[]
 }
 const CharacterList = ({characters}: CharacterListProps) => {
-  return (<Stack>
-      <Row>
+  return (<div className={'d-flex flex-row flex-wrap'}>
           {characters.map((character, i)=> {
-              return (<Col xs={12} sm={6} lg={4} xl={3} key={i}><CharacterCard character={character}/></Col>)
+              return (<div className={'p-1'} key={i}>
+                  <CharacterCard character={character}/>
+              </div>)
           })}
 
-      </Row>
-
-  </Stack>)
+  </div>)
 }
 
 export default CharacterList
