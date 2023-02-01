@@ -5,6 +5,11 @@ import episodeQuery from "@/data/queries/episode";
 import {useRouter} from "next/router";
 import {EpisodeContextParams} from "@/types";
 
+import EpisodeInfo from "@/components/EpisodeInfo";
+import CharacterList from "@/components/CharacterList";
+import Head from "next/head";
+import {Container} from "react-bootstrap";
+
 const Episode = () => {
     const router = useRouter()
     const {episodeId} = router.query as EpisodeContextParams
@@ -12,14 +17,17 @@ const Episode = () => {
     if (!data) {
         return (<div>no data</div>)
     }
-    return (<div>
-        episode
-        <ul>
-            {data.characters.map(character => {
-                return (<li key={character.id}>{character.id}</li>)
-            })}
-        </ul>
-    </div>)
+    return (<>
+        <Head>
+            <title>{`Rick And Morty - ${data.name} detail`}</title>
+        </Head>
+        <main>
+            <Container fluid={'md'}>
+                <EpisodeInfo episode={data}/>
+                <CharacterList characters={data.characters}/>
+            </Container>
+        </main>
+    </>)
 }
 
 export default Episode

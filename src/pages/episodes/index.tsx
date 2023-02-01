@@ -7,6 +7,7 @@ import {useRouter} from "next/router";
 import EpisodesPaging from "@/components/EpisodesPaging";
 import {Container, Stack, Row, Col} from "react-bootstrap";
 import EpisodeList from "@/components/EpisodeList";
+import Head from "next/head";
 
 const Episodes = () => {
     const router = useRouter()
@@ -17,6 +18,9 @@ const Episodes = () => {
     })
     if (!data) return (<div>no data</div>)
     return (<>
+        <Head>
+            <title>Rick and Morty Episodes</title>
+        </Head>
         <main>
             <Container fluid={'md'}>
                 <Row>

@@ -1,11 +1,11 @@
 import {z} from 'zod'
 
-const location = z.object({
+export const location = z.object({
     name: z.string().nullable(),
     dimension: z.string().nullable(),
 })
 
-const character = z.object({
+export const character = z.object({
     id: z.string(),
     name: z.string(),
     image: z.string(),
@@ -24,7 +24,7 @@ const character = z.object({
 
 })
 
-const episode = z.object({
+export const episode = z.object({
     id: z.string(),
     name: z.string(),
     air_date: z.string(),
