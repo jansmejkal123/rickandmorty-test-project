@@ -1,6 +1,6 @@
 import {z} from 'zod'
 
-const location = z.object({
+export const location = z.object({
     name: z.string().nullable(),
     dimension: z.string().nullable(),
 })

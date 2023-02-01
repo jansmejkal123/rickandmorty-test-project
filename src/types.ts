@@ -2,7 +2,7 @@ import {NextParsedUrlQuery} from "next/dist/server/request-meta";
 import {z} from "zod";
 import episodesQuerySchema, {episode as episodesEpisode} from "@/data/schemas/episodesQuerySchema";
 import episodeIDsQuerySchema from "@/data/schemas/episodeIDsQuerySchema";
-import episodeQuerySchema, {episode, character} from "@/data/schemas/episodeQuerySchema";
+import episodeQuerySchema, {episode, character, location} from "@/data/schemas/episodeQuerySchema";
 
 export interface EpisodesContextParams extends NextParsedUrlQuery {
     page?: string
@@ -23,4 +23,5 @@ export type EpisodesEpisode = z.infer<typeof episodesEpisode>
 export type Episode = z.infer<typeof episode>
 
 export type Character = z.infer<typeof character>
+export type CharacterLocation = z.infer<typeof location>
 
