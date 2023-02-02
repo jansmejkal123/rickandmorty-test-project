@@ -1,7 +1,10 @@
 
 //TODO: move to utils?
-import {EpisodeIDsQuerySchemaResponse} from "@/types";
+import {CommentsSchema, EpisodeIDsQuerySchemaResponse, Comment} from "@/types";
 import episodeIDsQuery from "@/data/queries/episodeIDs";
+import fs from "fs";
+import process from "process";
+import commentsSchema from "@/data/schemas/commentsSchema";
 
 const getIdsFromResults = (results: EpisodeIDsQuerySchemaResponse['episodes']['results'] | null):string[] => {
     if (!results) return []
@@ -22,4 +25,36 @@ export const fetchAllEpisodeIds = async (): Promise<string[]> => {
     }
 
     return ids
+}
+
+export const readComments = () => {
+    return fs.readFileSync(
+        `${process.cwd()}/data/comments.json`,
+        'utf-8'
+    )
+}
+
+export const getCommentsMap = async () => {
+    try {
+        const data = readComments()
+        const parsedData = JSON.parse(data)
+        const map = new Map(Object.entries(parsedData)) as CommentsSchema
+        if (commentsSchema.safeParse(map).success) {
+            return map
+        } else {
+            throw new Error('error parsing data')
+        }
+    } catch (e) {
+        throw new Error('could not read comments')
+    }
+}
+
+export const getEpisodesComments = async ({id}: { id: string }): Promise<Comment[]> => {
+    try {
+        const map = await getCommentsMap()
+        const result = map.get(id!) || []
+        return result
+    } catch (e) {
+        throw e
+    }
 }
