@@ -1,30 +1,36 @@
 import {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
-import {fetchAllEpisodeIds} from "@/data/utitlities";
+import {fetchAllEpisodeIds, getEpisodesComments} from "@/data/utitlities";
 import episodeQuery from "@/data/queries/episode";
 import {useRouter} from "next/router";
-import {EpisodeContextParams} from "@/types";
+import {EpisodeContextParams, Comment} from "@/types";
 
 import EpisodeInfo from "@/components/EpisodeInfo";
 import CharacterList from "@/components/CharacterList";
 import Head from "next/head";
 import {Container} from "react-bootstrap";
+import commentsQuery from "@/data/queries/comments";
 
 const Episode = () => {
     const router = useRouter()
     const {episodeId} = router.query as EpisodeContextParams
-    const {data} = useQuery('episode', () => episodeQuery({id: episodeId}), {refetchOnMount: false})
-    if (!data) {
+    const {data: episodeData} = useQuery('episode', () => episodeQuery({id: episodeId}), {refetchOnMount: false})
+    const {data: comments} = useQuery('episodeComments', () => commentsQuery({id: episodeId}), {refetchOnMount: true})
+    if (!episodeData) {
         return (<div>no data</div>)
     }
     return (<>
         <Head>
-            <title>{`Rick And Morty - ${data.name} detail`}</title>
+            <title>{`Rick And Morty - ${episodeData.name} detail`}</title>
         </Head>
         <main>
             <Container fluid={'md'}>
-                <EpisodeInfo episode={data}/>
-                <CharacterList characters={data.characters}/>
+                <EpisodeInfo episode={episodeData}/>
+                <CharacterList characters={episodeData.characters}/>
+                <div><h4>Comments</h4>{comments && comments.map((comment, i) =>{
+                    return (<div key={i}>{comment.text}</div>)
+                })}
+                </div>
             </Container>
         </main>
     </>)
@@ -37,6 +43,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const queryClient = new QueryClient()
     await queryClient.fetchQuery('episode', () => episodeQuery({id: params!.episodeId}))
+    await queryClient.fetchQuery('episodeComments', () => getEpisodesComments({id: params!.episodeId}))
 
     return {
         props: {
