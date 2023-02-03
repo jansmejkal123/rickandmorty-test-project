@@ -10,12 +10,12 @@ import CharacterList from "@/components/CharacterList";
 import Head from "next/head";
 import {Container} from "react-bootstrap";
 import commentsQuery from "@/data/queries/comments";
+import EpisodeComments from "@/components/EpisodeComments";
 
 const Episode = () => {
     const router = useRouter()
     const {episodeId} = router.query as EpisodeContextParams
     const {data: episodeData} = useQuery('episode', () => episodeQuery({id: episodeId}), {refetchOnMount: false})
-    const {data: comments} = useQuery('episodeComments', () => commentsQuery({id: episodeId}), {refetchOnMount: true})
     if (!episodeData) {
         return (<div>no data</div>)
     }
@@ -25,12 +25,15 @@ const Episode = () => {
         </Head>
         <main>
             <Container fluid={'md'}>
-                <EpisodeInfo episode={episodeData}/>
-                <CharacterList characters={episodeData.characters}/>
-                <div><h4>Comments</h4>{comments && comments.map((comment, i) =>{
-                    return (<div key={i}>{comment.text}</div>)
-                })}
-                </div>
+                <section>
+                    <EpisodeInfo episode={episodeData}/>
+                </section>
+                <section>
+                    <CharacterList characters={episodeData.characters}/>
+                </section>
+                <section>
+                    <EpisodeComments episodeId={episodeId}/>
+                </section>
             </Container>
         </main>
     </>)

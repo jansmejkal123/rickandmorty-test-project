@@ -1,13 +1,23 @@
 {"1": [
     {
       "id": "b",
-      "episodeId": "2",
+      "episodeId": "1",
       "user": {
         "name":"ygy",
         "email": "thisemail@email.is"
       },
       "dateTime": 1675350149124,
       "text": "test comment, lorem  ipsum"
-    }
+    },
+  {
+    "id": "c",
+    "episodeId": "1",
+    "user": {
+      "name": null,
+      "email": "thisemail@email.is"
+    },
+    "dateTime": 1675350149124,
+    "text": "test comment2, lorem  ipsum2"
+  }
   ]
 }
