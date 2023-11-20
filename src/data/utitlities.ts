@@ -58,3 +58,17 @@ export const getEpisodesComments = async ({id}: { id: string }): Promise<Comment
         throw e
     }
 }
+
+export const saveEpisodeComment = async ({episodeId, userName, userEmail, comment}: { episodeId: string, userName: string, userEmail: string, comment: string }): Promise<boolean> => {
+    try {
+        const map = await getCommentsMap()
+        const comments = map.get(episodeId) || []
+        comments.push({id: Date.now().toString(), dateTime: Date.now(), user: {name: userName, email: userEmail}, episodeId, text: comment})
+        map.set(episodeId, comments)
+        console.log('debug: map', map)
+        fs.writeFileSync(`${process.cwd()}/data/comments.json`, JSON.stringify(Object.fromEntries(map)))
+        return true
+    } catch (e) {
+        throw e
+    }
+}

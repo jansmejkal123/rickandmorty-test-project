@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 
 import {Comment} from "@/types";
-import {getEpisodesComments} from "@/data/utitlities";
+import {getEpisodesComments, saveEpisodeComment} from "@/data/utitlities";
 
 export default async function handler(
     req: NextApiRequest,
@@ -22,10 +22,18 @@ export default async function handler(
             return
         }
         case 'POST': {
-            return res.status(200)
+            console.log('debug: here comment', req.body)
+            const {comment, userName, userEmail, episodeId} =   req.body as {comment: string, userName: string, userEmail: string, episodeId: string}
+            const result = await saveEpisodeComment({episodeId, userName, userEmail, comment})
+            if (result) {
+             res.status(200).send('ok')
+            }
+            res.status(500).send('server error')
+            return
         }
         default: {
-            return res.status(400).send('bad request')
+            res.status(400).send('bad request')
+            return
         }
     }
 }
