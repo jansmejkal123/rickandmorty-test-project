@@ -1,1 +1,24 @@
-{"1":[{"id":"b","episodeId":"1","user":{"name":"ygy","email":"thisemail@email.is"},"dateTime":1675350149124,"text":"test comment, lorem  ipsum"},{"id":"c","episodeId":"1","user":{"name":null,"email":"thisemail@email.is"},"dateTime":1675350149124,"text":"test comment2, lorem  ipsum2"},{"id":"1700494857715","dateTime":1700494857715,"user":{"name":"c","email":"user@email.com"},"episodeId":"1","text":"debile"}]}
+{"1": [
+  {
+    "id": "b",
+    "episodeId": "1",
+    "user": {
+      "name":"ygy",
+      "email": "thisemail@email.is"
+    },
+    "userAgreement": true,
+    "dateTime": 1675350149124,
+    "text": "test comment, lorem  ipsum"
+  },
+  {
+    "id": "c",
+    "episodeId": "1",
+    "user": {
+      "name": null,
+      "email": "thisemail@email.is"
+    },
+    "dateTime": 1675350149124,
+    "text": "test comment2, lorem  ipsum2"
+  }
+]
+}

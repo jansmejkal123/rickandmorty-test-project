@@ -1,6 +1,6 @@
 import {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
 import {dehydrate, QueryClient, useQuery} from "react-query";
-import {fetchAllEpisodeIds, getEpisodesComments} from "@/data/utitlities";
+import {fetchAllEpisodeIds, getEpisodesComments} from "@/data/utilities";
 import episodeQuery from "@/data/queries/episode";
 import {useRouter} from "next/router";
 import {EpisodeContextParams, Comment} from "@/types";

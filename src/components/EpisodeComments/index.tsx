@@ -1,19 +1,23 @@
 import {useQuery} from "react-query";
 import Comment from "@/components/Comment";
 import commentsQuery from "@/data/queries/comments";
-import {CardGroup, Col, Container, Row, Stack} from "react-bootstrap";
+import { Stack } from "react-bootstrap";
+import AddCommentForm from "src/components/AddCommentForm";
 
 type EpisodeCommentsProps = {
     episodeId: string
 }
 const EpisodeComments = ({episodeId}: EpisodeCommentsProps) => {
-    const {data} = useQuery('episodeComments', () => commentsQuery({id: episodeId}), {refetchOnMount: true})
+    const {data, refetch} = useQuery('episodeComments', () => commentsQuery({id: episodeId}))
 
     return (<Stack direction={'vertical'}>
         <h4>Comments</h4>
-            {data && data.map((comment, i) => {
+
+            {data?.map((comment, i) => {
                 return (<Comment comment={comment} key={i}/>)
             })}
+
+        <AddCommentForm episodeId={episodeId} refetchComments={refetch}/>
     </Stack>)
 }
 
