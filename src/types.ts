@@ -5,6 +5,8 @@ import episodeIDsQuerySchema from "@/data/schemas/episodeIDsQuerySchema";
 import episodeQuerySchema, {episode, character, location} from "@/data/schemas/episodeQuerySchema";
 
 import commentsSchema, {user as commentUser, comment} from '@/data/schemas/commentsSchema';
+import addCommentFormSchema from "@/data/schemas/addCommentFormSchema";
+
 export interface EpisodesContextParams extends NextParsedUrlQuery {
     page?: string
 }
@@ -29,3 +31,4 @@ export type CharacterLocation = z.infer<typeof location>
 export type CommentUser = z.infer<typeof commentUser>
 export type Comment = z.infer<typeof comment>
 export type CommentsSchema = z.infer<typeof commentsSchema>
+export type AddCommentFormSchema = z.infer<typeof addCommentFormSchema>

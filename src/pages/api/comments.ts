@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 
-import {Comment} from "@/types";
-import {getEpisodesComments} from "@/data/utitlities";
+import {AddCommentFormSchema, Comment } from "@/types";
+import {getEpisodesComments, saveEpisodeComment} from "@/data/utilities";
 
 export default async function handler(
     req: NextApiRequest,
@@ -12,6 +12,7 @@ export default async function handler(
             const episodeId = req.query.episodeId as string | null
             if (!episodeId) {
                 res.status(400).send('bad request')
+                return
             }
             try {
                 const comments = await getEpisodesComments({id: episodeId!})
@@ -22,10 +23,20 @@ export default async function handler(
             return
         }
         case 'POST': {
-            return res.status(200)
+            const {comment, userName = null, userEmail, episodeId, userAgreement} =   await  JSON.parse(req.body) as AddCommentFormSchema
+            const result = await saveEpisodeComment({episodeId, userEmail, userName, comment, userAgreement})
+
+            if (result) {
+             res.status(200).send('ok')
+                return
+            }
+
+            res.status(500).send('server error')
+            return
         }
         default: {
-            return res.status(400).send('bad request')
+            res.status(400).send('bad request')
+            return
         }
     }
 }

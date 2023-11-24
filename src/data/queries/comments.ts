@@ -11,7 +11,7 @@ const commentsQuery = ({id}: CommentsQueryParams) => {
             }
             try {
                 const result = await response.json() as Comment[]
-                return result
+                return result.filter(comment => comment.userAgreement)
             } catch (e) {
                 // TODO: handle errors
                 console.error('debug: error', e)
