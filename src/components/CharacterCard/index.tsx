@@ -34,7 +34,7 @@ const CustomToggle = ({children, eventKey, callback}: CustomToggleProps) => {
 
 const CharacterCard = ({character}: CharacterCardProps) => {
     const imageWrapper = useRef<HTMLDivElement>(null)
-    const [imageWrapperWidth, setImageWrapperWidth] = useState(0)
+    const [imageWrapperWidth, setImageWrapperWidth] = useState<number | null>(null)
     const [opened, setOpened] = useState(false)
     useEffect(() => {
         if (!imageWrapper || !imageWrapper.current) return
@@ -49,7 +49,7 @@ const CharacterCard = ({character}: CharacterCardProps) => {
         const {dimension, name} = location
         const locationString = dimension && name === 'unknown' ? 'unknown location' : name
         const dimensionString = dimension && dimension === 'unknown' ? 'unknown dimension' : dimension
-        const filteredOrdered: string[] =  [locationString, dimensionString].filter(item => new Boolean(item)) as string[]
+        const filteredOrdered: string[] =  [locationString, dimensionString].filter(item => Boolean(item)) as string[]
         return filteredOrdered.join(', ')
     }
 
@@ -65,7 +65,7 @@ const CharacterCard = ({character}: CharacterCardProps) => {
                                alt={character.name}
                                priority={true}
                                fill
-                               sizes={imageWrapperWidth !== undefined ? `${Math.round(imageWrapperWidth)}px` : '100vw'}
+                               sizes={imageWrapperWidth ? `${Math.round(imageWrapperWidth)}px` : '100vw'}
                                className={'card-img'}
                         />
 

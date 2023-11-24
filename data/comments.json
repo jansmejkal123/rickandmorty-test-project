@@ -17,6 +17,7 @@
       "name": null,
       "email": "thisemail@email.is"
     },
+    "userAgreement": false,
     "dateTime": 1675350149124,
     "text": "test comment2, lorem  ipsum2"
   }

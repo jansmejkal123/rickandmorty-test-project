@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+
 import { Button, Card, Form} from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,7 +41,7 @@ const AddCommentForm: FunctionComponent<Props> = ({episodeId, refetchComments}: 
                 </Form.Group>
                 <Form.Group>
                     <Form.Label htmlFor="user_email">e-mail</Form.Label>
-                    <Form.Control id="user_email" type="email" {...register('userEmail')}/>
+                    <Form.Control id="user_email"  {...register('userEmail')}/>
                     {errors.userEmail && <Form.Text className={'text-warning'}>{errors.userEmail.message}</Form.Text>}
                 </Form.Group>
 
@@ -50,7 +51,7 @@ const AddCommentForm: FunctionComponent<Props> = ({episodeId, refetchComments}: 
                     {errors.comment && <Form.Text className={'text-warning'}>{errors.comment.message}</Form.Text>}
                 </Form.Group>
                 <Form.Group>
-                    <Form.Check type="checkbox" id="user_agreement" label={'I agree'} {...register('userAgreement')}/>
+                    <Form.Check type="checkbox" id="user_agreement" label={'I agree'} {...register('userAgreement', {required: 'required-field-userAgreement'})}/>
                     {errors.userAgreement && <Form.Text className={'text-warning'}>{errors.userAgreement.message}</Form.Text>}
                 </Form.Group>
                 <Form.Control type="hidden" value={episodeId} {...register('episodeId')}/>

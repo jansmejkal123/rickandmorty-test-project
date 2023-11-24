@@ -27,9 +27,8 @@ const Episodes = () => {
                   <Col><h1>episodes</h1></Col>
                   <Col><EpisodesPaging /></Col>
                 </Row>
-                <Stack direction={'vertical'} className={'d-flex  justify-content-center'}>
+                <Stack direction={'vertical'} className={'d-flex justify-content-center'}>
                     <EpisodeList episodes={data.results}  />
-
                 </Stack>
             </Container>
         </main>

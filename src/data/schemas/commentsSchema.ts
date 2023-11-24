@@ -1,7 +1,7 @@
 import {z} from 'zod'
 
 export const userName = z.string().nullable()
-export const userEmail = z.string({required_error: 'email-error-wrong-format'}).min(1, 'required-field').email({message: 'email-error-wrong-format'})
+export const userEmail = z.string({required_error: 'required-field-email'}).min(1, 'required-field-email').email({message: 'wrong-format-email'})
 
 export const user = z.object({
     name: userName,
