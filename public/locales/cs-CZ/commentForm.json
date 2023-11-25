@@ -1,0 +1,14 @@
+{
+  "add-comment": "Přidat komentář",
+  "user-name": "Jméno",
+  "user-email": "E-mail",
+  "comment": "Komentář",
+  "submit": "Odeslat",
+  "userAgreement": "Souhlasím se zveřejněním údajů",
+  "required-field-episodeId": "Povinné pole episodeId",
+  "required-field-comment": "Vyplňte komentář",
+  "required-field-email": "Vyplňte e-mail",
+  "wrong-format-email": "Nesprávný formát",
+  "required-field-agreement": "Pro odeslání je třeba povolením se zveřejněním údajů",
+  "thank-you-comment": "Děkujeme za komentář!"
+}

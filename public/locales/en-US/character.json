@@ -1,0 +1,7 @@
+{
+  "gender": "gender",
+  "type": "type",
+  "status": "status",
+  "origin": "origin",
+  "last-location": "last known location"
+}
