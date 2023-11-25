@@ -1,4 +1,6 @@
 import {dehydrate, QueryClient, useQuery} from "react-query";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import episodesQuery from "@/data/queries/episodes";
 import {GetServerSideProps} from "next";
 import {EpisodesContextParams} from "@/types";
@@ -8,6 +10,7 @@ import EpisodesPaging from "@/components/EpisodesPaging";
 import {Container, Stack, Row, Col} from "react-bootstrap";
 import EpisodeList from "@/components/EpisodeList";
 import Head from "next/head";
+import {useTranslation} from "next-i18next";
 
 const Episodes = () => {
     const router = useRouter()
@@ -16,6 +19,7 @@ const Episodes = () => {
     const {data} = useQuery('episodes', () => episodesQuery({page}), {
         useErrorBoundary: true
     })
+    const {t} = useTranslation('episodes');
     if (!data) return (<div>no data</div>)
     return (<>
         <Head>
@@ -24,7 +28,7 @@ const Episodes = () => {
         <main>
             <Container fluid={'md'}>
                 <Row>
-                  <Col><h1>episodes</h1></Col>
+                  <Col><h1>{t('episodes')}</h1></Col>
                   <Col><EpisodesPaging /></Col>
                 </Row>
                 <Stack direction={'vertical'} className={'d-flex justify-content-center'}>
@@ -38,8 +42,8 @@ const Episodes = () => {
 export default Episodes
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const pageString = context.query && context.query.page ? context.query.page as EpisodesContextParams['page'] : '1'
+export const getServerSideProps: GetServerSideProps = async ({query, locale, defaultLocale}) => {
+    const pageString = query && query.page ? query.page as EpisodesContextParams['page'] : '1'
     const page = pageString && Number.parseInt(pageString)
     const hasValidNumber = page && !Number.isNaN(page)
     if (!hasValidNumber) {
@@ -65,6 +69,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             dehydratedState: dehydrate(queryClient),
+            ...(await serverSideTranslations(locale || defaultLocale!, [
+                'episodes',
+            ])),
         }
     }
 }

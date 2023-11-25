@@ -1,0 +1,14 @@
+{
+  "add-comment": "Add a Comment",
+  "user-name": "Name",
+  "user-email": "E-mail",
+  "comment": "Comment",
+  "submit": "Submit",
+  "userAgreement": "I agree to make these data public",
+  "required-field-episodeId": "Required field episodeId",
+  "required-field-comment": "Please add a comment",
+  "required-field-email": "Please add your email",
+  "wrong-format-email": "Invalid e-mail address",
+  "required-field-agreement": "To send a comment, you must agree to the terms and conditions",
+  "thank-you-comment": "Thank you for your comment!"
+}

@@ -2,8 +2,8 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
-    <Html lang="en">
-        <Head title={'Rick and Morty Episodes Viewer'}>
+    <Html>
+        <Head>
             <noscript>
                 <link
                     rel="stylesheet"

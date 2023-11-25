@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, {MouseEvent, MouseEventHandler, useEffect, useRef, useState} from "react";
 import style from './CharacterCard.module.scss'
 import Link from "next/link";
+import {useTranslation} from "next-i18next";
 
 type CharacterCardProps = {
     character: Character
@@ -33,6 +34,7 @@ const CustomToggle = ({children, eventKey, callback}: CustomToggleProps) => {
 }
 
 const CharacterCard = ({character}: CharacterCardProps) => {
+    const {t} = useTranslation('character')
     const imageWrapper = useRef<HTMLDivElement>(null)
     const [imageWrapperWidth, setImageWrapperWidth] = useState<number | null>(null)
     const [opened, setOpened] = useState(false)
@@ -78,21 +80,20 @@ const CharacterCard = ({character}: CharacterCardProps) => {
                                         <Accordion.Collapse eventKey={'main'}>
                                             <div>
                                                 {character.gender && <p>
-                                                  <b>gender:</b>
-                                                    {character.gender}
+                                                  <b>{t('gender')}</b> {character.gender}
                                                 </p>}
                                                 {character.type && <p>
-                                                  <b>type:</b> {character.type}
+                                                  <b>{t('type')}</b> {character.type}
                                                 </p>
 
                                                 }
                                                 {character.status &&<p>
-                                                  <b>status:</b> {character.status}
+                                                  <b>{t('status')}</b> {character.status}
                                                 </p>}
                                                 {character.origin && <p>
-                                                  <b>origin:</b> {getLocationString(character.origin)}
+                                                  <b>{t('origin')}</b> {getLocationString(character.origin)}
                                                 </p>}
-                                                <p><b>last knonw location:</b> {getLocationString(character.location)}
+                                                <p><b>{t('last-location')}</b> {getLocationString(character.location)}
                                                 </p>
                                                 <p>{character.episode.map((episode, i) => {
                                                     return (<Link href={`/episodes/${episode.id}`}
